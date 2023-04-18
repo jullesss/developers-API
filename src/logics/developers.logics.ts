@@ -53,7 +53,7 @@ const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
 
   const queryResult: QueryResult<TDevelopers> = await client.query(queryConfig);
 
-  return res.status(200).json(queryResult.rows);
+  return res.status(200).json(queryResult.rows[0]);
 };
 
 const createDeveloperInfo = async (
@@ -63,8 +63,15 @@ const createDeveloperInfo = async (
   const data: TDeveloperInfosRequest = req.body;
   const id: number = parseInt(req.params.id);
 
+  if (["Windows", "Linux", "MacOS"].indexOf(data.preferredOS) == -1) {
+    return res.status(400).json({
+      message: "Invalid OS option.",
+      options: ["Windows", "Linux", "MacOS"],
+    });
+  }
+
   const queryCheck = `
-  select "preferredOS" from developer_infos where "developerId" = $1;
+  SELECT "preferredOS" FROM developer_infos WHERE "developerId" = $1;
   `;
   const queryConfig: QueryConfig = {
     text: queryCheck,
@@ -72,16 +79,10 @@ const createDeveloperInfo = async (
   };
 
   const result: QueryResult<TDeveloperInfos> = await client.query(queryConfig);
+
   if (result.rowCount === 1) {
     return res.status(409).json({
       message: "Developer infos already exists.",
-    });
-  }
-
-  if (data.preferredOS !== "Windows" || "Linux" || "MacOS") {
-    return res.status(400).json({
-      message: "Invalid OS option.",
-      options: ["Windows", "Linux", "MacOS"],
     });
   }
 

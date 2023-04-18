@@ -16,6 +16,8 @@ type TTechs = {
   name: string;
 };
 
+type TTechsRequest = Omit<TTechs, "id">;
+
 type TProjectsTechs = {
   projectId: number;
   projectName: string;
@@ -29,4 +31,4 @@ type TProjectsTechs = {
   technologyName?: number;
 };
 
-export { TProjects, TProjectsRequest, TProjectsTechs };
+export { TProjects, TProjectsRequest, TProjectsTechs, TTechs, TTechsRequest };

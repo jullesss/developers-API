@@ -11,8 +11,19 @@ import {
   checkEmail,
   ensureIdExists,
 } from "./middlewares/developers.middlewares";
-import { createProject, getProject } from "./logics/projects.logics";
-import { ensureProjectIdExists } from "./middlewares/projects.middlewares";
+import {
+  createProject,
+  createTech,
+  deleteProject,
+  deleteTech,
+  editProject,
+  getProject,
+} from "./logics/projects.logics";
+import {
+  ensureProjectIdExists,
+  ensureTechExists,
+  noRepeatedTechName,
+} from "./middlewares/projects.middlewares";
 
 const app: Application = express();
 app.use(express.json());
@@ -25,9 +36,20 @@ app.delete("/developers/:id", ensureIdExists, deleteDeveloper);
 
 app.post("/projects", ensureIdExists, createProject);
 app.get("/projects/:id", ensureProjectIdExists, getProject);
-app.patch("/projects/:id");
-app.delete("/projects/:id");
-app.post("/projects/:id/technologies");
-app.delete("/projects/:id/technologies/name");
+app.patch("/projects/:id", ensureProjectIdExists, ensureIdExists, editProject);
+app.delete("/projects/:id", ensureProjectIdExists, deleteProject);
+app.post(
+  "/projects/:id/technologies",
+  ensureProjectIdExists,
+  ensureTechExists,
+  noRepeatedTechName,
+  createTech
+);
+app.delete(
+  "/projects/:id/technologies/:name",
+  ensureProjectIdExists,
+  ensureTechExists,
+  deleteTech
+);
 
 export default app;

@@ -26,13 +26,22 @@ CREATE TABLE IF NOT EXISTS projects(
     FOREIGN KEY ("developerId") REFERENCES developers("id") ON DELETE SET NULL
 );
 
-CREATE TYPE "techList" AS ENUM('JavaScript', 'Python', 'React', 'Express.js', 'HTML', 'CSS', 'Django', 'PostgreSQL', 'MongoDB');
-
-
 CREATE TABLE IF NOT EXISTS technologies(
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(30) NOT NULL
 );
+
+INSERT INTO technologies ("name") VALUES
+    ('JavaScript'),
+    ('Python'),
+    ('React'),
+    ('Express.js'),
+    ('HTML'),
+    ('CSS'),
+    ('Django'),
+    ('PostgreSQL'),
+    ('MongoDB')
+;
 
 CREATE TABLE IF NOT EXISTS projects_technologies(
     "id" SERIAL PRIMARY KEY,
@@ -42,3 +51,4 @@ CREATE TABLE IF NOT EXISTS projects_technologies(
     FOREIGN KEY ("technologyId") REFERENCES technologies("id") ON DELETE CASCADE,
     FOREIGN KEY ("projectId") REFERENCES projects("id") ON DELETE CASCADE
 );
+

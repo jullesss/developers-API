@@ -39,7 +39,10 @@ const ensureIdExists = async (
 ): Promise<Response | void> => {
   let id: number = parseInt(req.params.id);
 
-  if (req.route.path === "/projects" && req.method === "POST") {
+  if (
+    (req.route.path === "/projects" && req.method === "POST") ||
+    (req.route.path === "/projects/:id" && req.method === "PATCH")
+  ) {
     id = req.body.developerId;
   }
 
@@ -54,8 +57,6 @@ const ensureIdExists = async (
   };
 
   const queryResult: QueryResult<TDevelopers> = await client.query(queryConfig);
-
-  console.log(queryResult);
 
   if (queryResult.rowCount === 0) {
     return res.status(404).json({ message: "Developer not found." });
