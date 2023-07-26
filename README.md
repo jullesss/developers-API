@@ -17,10 +17,9 @@ Essa aplicação possui testes automatizados. Os testes não devem ser alterados
   - **Exemplo**: npm run test createDeveloper.test
 
 ## **Relacionamentos**
-
-**developers e developer_infos**
-**developers e projects**
-**projects e projects_technologies**
+- developers e developer_infos
+- developers e projects
+- projects e projects_technologies
 
 ## **Rotas - /developers**
 
