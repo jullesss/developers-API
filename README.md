@@ -4,11 +4,9 @@
 
 Através dessa API REST é possível realizar o registro da uma pessoa desenvolvedora, associar informações extras a mesma, registrar projetos e associar as tecnologias utilizadas nesses projetos e, por fim, adicionar projetos às respectivas pessoas desenvolvedoras.
 
-- **Essa aplicação possui testes automatizados**;
-
 ### AVISO
 
-Os testes não devem ser alterados.
+Essa aplicação possui testes automatizados. Os testes não devem ser alterados.
 
 - Para rodar a aplicação precisa popular as variaveis de ambiente, que irá encontrar no env.exemple:
     - Tanto as com sufixo test (DB_TEST, DB_TEST_USER...) para conseguir utilizar o comando npm run test. 
@@ -20,9 +18,9 @@ Os testes não devem ser alterados.
 
 ## **Relacionamentos**
 
-### **developers e developer_infos**
-### **developers e projects**
-### **projects e projects_technologies**
+**developers e developer_infos**
+**developers e projects**
+**projects e projects_technologies**
 
 ## **Rotas - /developers**
 
